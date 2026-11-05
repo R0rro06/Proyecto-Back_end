@@ -20,14 +20,15 @@ class UsuarioAdminTests(TestCase):
     def setUp(self):
         self.client.force_login(self.admin)
 
-    def test_admin_de_django_y_usuario_del_proyecto_estan_disponibles(self):
-        self.assertEqual(self.client.get(reverse('admin:index')).status_code, 200)
-        self.assertEqual(
-            self.client.get(reverse('admin:auth_user_changelist')).status_code, 200,
-        )
+    def test_admin_muestra_usuarios_del_proyecto_y_oculta_usuarios_y_grupos_de_django(self):
+        response = self.client.get(reverse('admin:index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, reverse('admin:APP_usuario_changelist'))
         self.assertEqual(
             self.client.get(reverse('admin:APP_usuario_changelist')).status_code, 200,
         )
+        self.assertEqual(self.client.get('/admin/auth/user/').status_code, 404)
+        self.assertEqual(self.client.get('/admin/auth/group/').status_code, 404)
 
     def test_usuario_anonimo_no_puede_administrar(self):
         self.client.logout()

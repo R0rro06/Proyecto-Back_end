@@ -53,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+SESSION_COOKIE_AGE = 1209600
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 ROOT_URLCONF = 'Teacompañamos.urls'
 

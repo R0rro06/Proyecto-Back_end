@@ -1,9 +1,14 @@
 from django.contrib import admin
+from django.contrib.auth.models import Group, User as DjangoUser
 from django.utils.decorators import method_decorator
 from django.views.decorators.debug import sensitive_post_parameters
 
 from .admin_forms import UsuarioChangeAdminForm, UsuarioCreationAdminForm
 from .models import Usuario
+
+
+admin.site.unregister(DjangoUser)
+admin.site.unregister(Group)
 
 
 @admin.register(Usuario)
